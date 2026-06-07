@@ -1,0 +1,104 @@
+# -----------------------------------------------------------------------------
+# Sample mkdocs.yml — drop a copy of this file at the root of any repository
+# you want to expose through the techdocs portal.
+#
+# What this enables:
+#   * Backstage's `techdocs-core` MkDocs plugin (Material theme + the
+#     full set of Python-Markdown / pymdownx extensions Backstage uses).
+#   * Client-side Mermaid rendering via `mkdocs-mermaid2-plugin`.
+#   * Server-side PlantUML rendering via the `plantuml_markdown`
+#     extension (already bundled in techdocs-core); the portal image
+#     ships with a local `plantuml` binary on PATH.
+# -----------------------------------------------------------------------------
+
+site_name: My Service Documentation
+site_description: Architecture, runbooks and reference for "my-service".
+site_author: Platform Team
+# `site_url` is optional; set it when publishing the static site somewhere.
+
+# Where the markdown lives, relative to this file. `docs/` is the MkDocs default.
+docs_dir: docs
+
+# Navigation.
+#
+# Two options:
+#   1. Omit `nav:` entirely  -> MkDocs auto-builds the nav from the docs/
+#      tree (each subdirectory becomes a section, each .md a page,
+#      file names are turned into titles, and `index.md` / `README.md`
+#      becomes the section's landing page).
+#   2. List everything explicitly, as below.
+nav:
+  - Home: index.md
+  - Architecture:
+      - Overview: architecture/overview.md
+      - Sequence diagrams: architecture/sequences.md
+  - Operations:
+      - Runbook: operations/runbook.md
+  - Reference:
+      - API: reference/api.md
+
+plugins:
+  - techdocs-core:
+      # Use Material's search index so the Backstage TechDocs reader has
+      # full-text search if/when these docs are surfaced through Backstage.
+      use_material_search: true
+  - mermaid2:
+      # Pin the JS version that mermaid2 will load from the CDN at render time.
+      version: 10.9.1
+
+# `markdown_extensions` is merged with the defaults provided by techdocs-core.
+# The entries below tune PlantUML, tell `pymdownx.superfences` how to treat
+# ```mermaid``` fenced blocks so mermaid2 can pick them up later, and ensure
+# `#` (H1) headings show up as top-level chapters in the sidebar TOC.
+markdown_extensions:
+  - toc:
+      # Include H1..H6 in the table of contents. Combined with the
+      # `theme.custom_dir` override below, every `#` heading becomes a
+      # top-level chapter in the sidebar TOC instead of being treated
+      # as the page title and hidden.
+      toc_depth: "1-6"
+      permalink: true
+      title: On this page
+  - plantuml_markdown:
+      # Use the local PlantUML binary baked into the portal image.
+      # (Remove this and set `server: https://www.plantuml.com/plantuml`
+      # if you prefer the public render server.)
+      plantuml_cmd: /usr/local/bin/plantuml
+      format: svg
+      classes: uml
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          # Pass the raw fenced content through unchanged so mermaid2's
+          # JS renderer can take over in the browser.
+          format: !!python/name:mermaid2.fence_mermaid_custom
+
+# Optional theme tweaks. techdocs-core forces the Material theme, but you
+# can still customise palette, logo, etc.
+theme:
+  name: material
+  # Bring in the portal's override of mkdocs-material's `partials/toc.html`
+  # so every `#` heading is rendered in the TOC. The path resolves to a
+  # directory baked into the techdocs-portal image — change this if you
+  # run mkdocs outside the container.
+  custom_dir: /opt/techdocs/overrides
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - toc.follow
+    - content.code.copy
+    - content.tabs.link
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+
+# Anything you want to surface to templates / pages.
+extra:
+  repo_url: https://github.com/example-org/my-service
+  edit_uri: edit/main/docs/

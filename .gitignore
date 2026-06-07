@@ -1,0 +1,13 @@
+# Build artefacts
+_site/
+site/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Editors
+.vscode/
+.idea/
+.DS_Store

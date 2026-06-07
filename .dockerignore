@@ -1,0 +1,12 @@
+.git
+.gitignore
+.dockerignore
+README.md
+Makefile
+start-docs.sh
+examples
+_site
+site
+.vscode
+.idea
+.DS_Store

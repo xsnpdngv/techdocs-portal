@@ -1,0 +1,25 @@
+# -----------------------------------------------------------------------------
+# Optional Backstage catalog file.
+#
+# If you ever wire this repository into a Backstage instance, the
+# `backstage.io/techdocs-ref: dir:.` annotation tells TechDocs to look for
+# `mkdocs.yml` at the repository root. Until then, this file simply documents
+# how the repo is meant to be consumed.
+# -----------------------------------------------------------------------------
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: my-service
+  description: My example service.
+  annotations:
+    # Tells Backstage TechDocs to render docs from this repo. `dir:.` means
+    # "use the mkdocs.yml at the repository root". You can also point at a
+    # subdirectory (e.g. `dir:docs-site`) or a remote URL.
+    backstage.io/techdocs-ref: dir:.
+  tags:
+    - documentation
+    - example
+spec:
+  type: service
+  lifecycle: production
+  owner: platform-team

@@ -1,0 +1,5 @@
+#!/bin/sh
+# Wrapper expected by the plantuml-markdown extension.
+# IMPORTANT: only the diagram bytes may be written to stdout, so do NOT
+# echo anything else here.
+exec java ${PLANTUML_JAVAOPTS:-} -Djava.awt.headless=true -jar "${PLANTUML_JAR:-/opt/plantuml/plantuml.jar}" "$@"
