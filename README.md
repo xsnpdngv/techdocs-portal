@@ -1,4 +1,4 @@
-# techdocs portal
+# TechDocs Portal
 
 A repo-agnostic [TechDocs](https://backstage.io/docs/features/techdocs/techdocs-overview)
 documentation portal, packaged as a Docker image. Built on top of
@@ -16,13 +16,13 @@ serve its documentation on `http://localhost:8000`.
 
 | Path                              | Purpose                                                          |
 | --------------------------------- | ---------------------------------------------------------------- |
-| [Dockerfile](Dockerfile)          | Builds the `techdocs-portal` image.                              |
-| [Makefile](Makefile)              | `make build`, `make serve`, `make build-site`, `make shell`, …   |
-| [start-docs.sh](start-docs.sh)    | Launcher: serve docs for any `<repo-path>`.                      |
-| [scripts/entrypoint.sh](scripts/entrypoint.sh) | Container entrypoint (`serve` / `build` / pass-through). |
-| [scripts/plantuml](scripts/plantuml) | Tiny wrapper that runs `plantuml.jar` from inside the image.  |
-| [overrides/partials/toc.html](overrides/partials/toc.html) | Material theme override so every `#` heading shows up in the TOC. |
-| [examples/](examples)             | A ready-to-render sample repo with Mermaid + PlantUML diagrams.  |
+| [`Dockerfile`](Dockerfile)          | Builds the `techdocs-portal` image.                              |
+| [`Makefile`](Makefile)              | `make build`, `make serve`, `make build-site`, `make shell`, …   |
+| [`techdocs-portal`](techdocs-portal)    | Launcher: serve docs for any `<repo-path>`.                      |
+| [`scripts/entrypoint.sh`](scripts/entrypoint.sh) | Container entrypoint (`serve` / `build` / pass-through). |
+| [`scripts/plantuml`](scripts/plantuml) | Tiny wrapper that runs `plantuml.jar` from inside the image.  |
+| [`overrides/partials/toc.html`](overrides/partials/toc.html) | Material theme override so every `#` heading shows up in the TOC. |
+| [`examples/`](examples)             | A ready-to-render sample repo with Mermaid + PlantUML diagrams.  |
 
 ## Quick start
 
@@ -35,7 +35,7 @@ make serve
 # -> open http://localhost:8000
 
 # 3. Serve YOUR repository
-./start-docs.sh /path/to/your/repo
+./techdocs-portal /path/to/your/repo
 # or
 make serve REPO=/path/to/your/repo PORT=8001
 ```
@@ -43,7 +43,7 @@ make serve REPO=/path/to/your/repo PORT=8001
 To produce a static site instead of a live server:
 
 ```bash
-./start-docs.sh -b /path/to/your/repo
+./techdocs-portal -b /path/to/your/repo
 # output ends up in /path/to/your/repo/_site
 ```
 
@@ -201,8 +201,8 @@ itself does not consume it.
 | `PLANTUML_JAVAOPTS` (env) | _(empty)_            | Extra JVM flags for PlantUML (e.g. include path). |
 | `make build REPO=…`     | `./examples`           | Repository to mount.                           |
 | `make serve PORT=…`     | `8000`                 | Host port to expose.                           |
-| `start-docs.sh -i`      | `techdocs-portal:latest` | Image to run.                                |
-| `start-docs.sh -b`      | _(off)_                | Build a static site instead of serving.        |
+| `techdocs-portal -i`    | `techdocs-portal:latest` | Image to run.                                |
+| `techdocs-portal -b`    | _(off)_                | Build a static site instead of serving.        |
 
 ## Notes
 

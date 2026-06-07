@@ -37,7 +37,7 @@ rebuild: ## Rebuild the image from scratch (no cache).
 		-t $(IMAGE_FULL) .
 
 serve: ## Run the portal against REPO=<path> (defaults to ./examples).
-	./start-docs.sh -i $(IMAGE_FULL) -p $(PORT) $(REPO)
+	./techdocs-portal -i $(IMAGE_FULL) -p $(PORT) $(REPO)
 
 build-site: ## Render a static site from REPO into ./_site.
 	mkdir -p $(CURDIR)/_site

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Start the TechDocs portal for an arbitrary repository.
 #
-#   ./start-docs.sh [-i IMAGE] [-p PORT] [-b] [--] <repo-path>
+#   ./techdocs-portal [-i IMAGE] [-p PORT] [-b] [--] <repo-path>
 #
 #   -i IMAGE   Docker image to run (default: techdocs-portal:latest)
 #   -p PORT    Host port to expose (default: 8000)
